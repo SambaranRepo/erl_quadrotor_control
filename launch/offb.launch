@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="world" default="empty"/>
+    <arg name="scale" default="1.0"/>
+    <arg name="gui" default="false"/>
+    <arg name="x" default="-1.0"/>
+    <arg name="y" default="4.0"/>
+    <arg name="z" default="0.1"/>
+
+    <!-- Launch rviz -->
+    <node pkg="rviz" type="rviz" name="rviz"
+          args="-d $(find erl_quadrotor_control)/rviz/quadrotor.rviz"/>
+
+
+    <!-- Launch PX4 simulator -->
+    <include file="$(find px4)/launch/mavros_posix_sitl.launch">
+		<arg name="x" value = "-1.0" />
+		<arg name="y" value = "4.0" />
+    </include>
+
+    <!-- Launch offboard node -->
+    <node name="offb" pkg="erl_quadrotor_control" type="offb_node" output="screen"/>
+</launch>
