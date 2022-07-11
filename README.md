@@ -64,7 +64,7 @@ _________________________________________________________________
 
 1. Run the following scripts to install common dependency packages, ROS Noetic, Gazebo11, mavros, mavlink and mavros-extras
 <pre>$chmod +x ubuntu_20.04_sim_common_deps.sh<
-$chmod +x ubuntu_20.04_sim.sh</pre>
+$chmod +x ubuntu_20.04_sim.sh
 $./ubuntu_20.04_sim_common_deps.sh
 $./ubuntu_20.04_sim.sh
 </pre>
