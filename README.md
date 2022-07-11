@@ -63,37 +63,37 @@ _________________________________________________________________
 ## First time setup:
 
 1. Run the following scripts to install common dependency packages, ROS Noetic, Gazebo11, mavros, mavlink and mavros-extras
-<pre>$chmod +x ubuntu_20.04_sim_common_deps.sh<
-$chmod +x ubuntu_20.04_sim.sh
-$./ubuntu_20.04_sim_common_deps.sh
-$./ubuntu_20.04_sim.sh
+<pre>chmod +x ubuntu_20.04_sim_common_deps.sh<
+chmod +x ubuntu_20.04_sim.sh
+./ubuntu_20.04_sim_common_deps.sh
+./ubuntu_20.04_sim.sh
 </pre>
 
 2. Install official mavros, mavros-extras 
 <pre>sudo apt-get install ros-noetic-mavros ros-noetic-mavros-extras</pre>
 
 3. Now try to launch gazebo in standalone method. 
-<pre>$gazebo</pre>
+<pre>gazebo</pre>
 If it launches without any symbolic errors, well and good. Otherwise perform the steps below : 
 
 <pre>
-$sudo apt upgrade libignition-math2
-$sudo apt upgrade libsdformat6
-$sudo apt update 
-$sudo apt upgrade
+sudo apt upgrade libignition-math2
+sudo apt upgrade libsdformat6
+sudo apt update 
+sudo apt upgrade
 </pre>
 
 4. Now install the PX4 Firmware or PX4-Autopilot(Here we proceed with PX4-Autopilot, the same can be done for Firmware. Just replace PX4-Autopilot with FIrmware)
 <pre>git clone --branch release/1.11 https://github.com/PX4/PX4-Autopilot.git --recursive
-$cd PX4-Autopilot
-$git submodule update --init --recursive
-$bash ./Tools/setup/ubuntu.sh
+cd PX4-Autopilot
+git submodule update --init --recursive
+bash ./Tools/setup/ubuntu.sh
 </pre>
 
 After succesful setup of the PX4 firmware, you will get a message to reboot or relogin before proceeding to the next step. 
 
-<pre>$cd PX4/PX4-Autopilot
-$make px4_sitl_default gazebo
+<pre>cd PX4/PX4-Autopilot
+make px4_sitl_default gazebo
 </pre>
 
 5. Clone this repo to to ~/catkin_ws/src
