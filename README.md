@@ -55,81 +55,6 @@ _________________________________________________________________
     
 7. Run ```catkin config -DCMAKE_BUILD_TYPE=Release``` and then ``` catkin build```.
 
-## Running simulation:
-1. Make sure the path "px4_dir" to your PX4 Firmware is updated in erl_quadrotor_control/scripts/launch-common.sh
-
-2. Run ```launch_offb.sh``` to hover using PX4 controller
-```
-cd erl_quadrotor_control/scripts
-chmod +x launch_offb.sh
-./launch_offb.sh
-```
-
-- The quadrotor is originally placed at location (x,y,z) = (0,0,0) with orientation (yaw, pitch, roll) = (0,0,0) in local frame. Its job is to go to location (x,y,z) = (0,0,5) with orientation (yaw, pitch, roll) = (pi, 0, 0).
-
- ![output](/figs/quad_sim.gif)
- 
- 3. Run ```hover-offb-geoctl.sh``` to hover using geometric controller
-```
-cd erl_quadrotor_control/scripts
-chmod +x hover-offb-geoctl.sh
-./hover-offb-geoctl.sh
-```
- - The quadrotor is originally placed at location (x,y,z) = (0,0,0) with orientation (yaw, pitch, roll) = (0,0,0) in local frame. Its job is to go to location (x,y,z) = (2,2,5) with orientation (yaw, pitch, roll) = (pi/2, 0, 0).
-
- ![output](/figs/geoctl_demo_hovering.gif)
- 
-  4. Run ```tracking-offb-geoctl.sh``` to track a circle using geometric controller
-```
-cd erl_quadrotor_control/scripts
-chmod +x tracking-offb-geoctl.sh
-./tracking-offb-geoctl.sh
-```
- - The quadrotor is originally placed at location (x,y,z) = (0,0,0) with orientation (yaw, pitch, roll) = (0,0,0) in local frame. Its job is to track a circle of radius 2 meters, centered at (-2, 0, 5) with orientation (yaw, pitch, roll) = (pi/2, 0, 0).
-
- ![output](/figs/geoctl_demo_tracking_16.gif)
-
- 5. Run ```launch-offb-panel.sh``` to launch the control panel 
- ```
- cd erl_quadrotor_control/scripts
- chmod +x launch-offb-panel.sh
- ./launch-offb-panel.sh
- ```
- ![output](/figs/control_panel_gui.gif)
- 
-- When exiting, ctrl+c the gazebo terminal on top right and wait for it to clean up before closing terminal
-______________________________________________________________________________
-# ROS Topics and Services used in this package.
-
-When running simulation, check out ROS topics to see what is happening in the system:
-```
-rostopic list
-rostopic echo <topic_name>
-(ctrl+c to exit)
-```
-
-ROS Topics [http://wiki.ros.org/mavros]
-1. mavros/state - tells current flight mode of the drone [https://dev.px4.io/en/concept/flight_modes.html]
-2. mavros/setpoint_position/local - set a target pose in local frame
-3. mavros/setpoint_velocity/cmd_vel - set a twist (linear and angular velocity).
-4. mavros/setpoint_raw/attitude -  set a attitude target
-
-Services
-1. mavros/cmd/arming - arm the drone
-2. mavros/set_mode - set the current flight mode
-______________________________________________________________________________
-# Description of PanelCmd Message.
-## Components
-| Name | Type | Value |
-| --- | --- | --- |
-| arm | bool | true (Takeoff), false (Land)
-| algorithm | int8 | 0 (None), 1 (PX4), 2 (Geometric)
-| trajectory_mode | int8 | 0 (None), 1 (Hover), 2 (Circle), 3 (Setpoint)
-| x | float64 | x-axis position [m]
-| y | float64 | y-axis position [m]
-| z | float64 | z-axis position [m]
-| yaw | float64 | yaw angle [deg]
-
 
 # Setup in Ubuntu 20.04
 Installation instructions for Ubuntu 20.04. Ubuntu 20.04 requires ROS Noetic, Gazebo11 and PX4 Firmware release 1.11
@@ -138,10 +63,11 @@ _________________________________________________________________
 ## First time setup:
 
 1. Run the following scripts to install common dependency packages, ROS Noetic, Gazebo11, mavros, mavlink and mavros-extras
-<pre>$chmod +x ubuntu_20.04_sim_common_deps.sh</pre>
-<pre>$chmod +x ubuntu_20.04_sim.sh</pre>
-<pre>$./ubuntu_20.04_sim_common_deps.sh</pre>
-<pre>$./ubuntu_20.04_sim.sh</pre>
+<pre>$chmod +x ubuntu_20.04_sim_common_deps.sh<
+$chmod +x ubuntu_20.04_sim.sh</pre>
+$./ubuntu_20.04_sim_common_deps.sh
+$./ubuntu_20.04_sim.sh
+</pre>
 
 2. Install official mavros, mavros-extras 
 <pre>sudo apt-get install ros-noetic-mavros ros-noetic-mavros-extras</pre>
@@ -158,16 +84,17 @@ $sudo apt upgrade
 </pre>
 
 4. Now install the PX4 Firmware or PX4-Autopilot(Here we proceed with PX4-Autopilot, the same can be done for Firmware. Just replace PX4-Autopilot with FIrmware)
-<pre>git clone --branch release/1.11 https://github.com/PX4/PX4-Autopilot.git --recursive</pre>
-<pre>$cd PX4-Autopilot
+<pre>git clone --branch release/1.11 https://github.com/PX4/PX4-Autopilot.git --recursive
+$cd PX4-Autopilot
 $git submodule update --init --recursive
 $bash ./Tools/setup/ubuntu.sh
 </pre>
 
 After succesful setup of the PX4 firmware, you will get a message to reboot or relogin before proceeding to the next step. 
 
-<pre>$cd PX4/PX4-Autopilot</pre>
-<pre>$make px4_sitl_default gazebo</pre>
+<pre>$cd PX4/PX4-Autopilot
+$make px4_sitl_default gazebo
+</pre>
 
 5. Clone this repo to to ~/catkin_ws/src
      ```
@@ -185,7 +112,7 @@ After succesful setup of the PX4 firmware, you will get a message to reboot or r
 8. You may encounter some error while building the above catkin workspace. Jut run ```catkin build``` until all packages are built succesfully.
 
 
-## Running simulation:
+# Running simulation:
 1. Make sure the path "px4_dir" to your PX4 Firmware is updated in erl_quadrotor_control/scripts/launch-common.sh
 It should look like this : ```px4_dir = ~/PX4/PX4-Autopilot``` if you cloned PX4/PX4-Autopilot or ```px4_dir = ~/PX4/Firmware``` if you cloned PX4/Firmware. 
 
